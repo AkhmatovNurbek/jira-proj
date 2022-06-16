@@ -1,5 +1,6 @@
 package jira;
 
+import jira.session.SessionUser;
 import jira.ui.BaseMenu;
 /**
  * @author "Elmurodov Javohir"
@@ -8,6 +9,7 @@ import jira.ui.BaseMenu;
  */
 
 public class Application {
+    public static SessionUser sessionUser = null;
     public static void main(String[] args) {
         BaseMenu.baseMenu();
         main(args);

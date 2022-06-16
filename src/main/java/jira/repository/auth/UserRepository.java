@@ -67,14 +67,14 @@ public class UserRepository implements GenericCRUDRepository<User, UserCriteria,
         return instance;
     }
 
-    public Optional<User> findByUsername(UserCreateVO userCreateVO) {
+    public static Optional<User> findByUsername(UserCreateVO userCreateVO) {
         return users.stream()
                 .filter(user -> user.getUserName().equalsIgnoreCase(userCreateVO.getUserName())
                         && user.getPassword().equals(userCreateVO.getPassword()))
                 .findFirst();
     }
 
-    public Optional<User> findByUsername(Long id){
+    public static Optional<User> findByUsername(Long id){
         return users.stream()
                 .filter(user -> user.getId().equals(id))
                 .findFirst();
