@@ -11,6 +11,7 @@ import jira.vo.auth.UserVO;
 import jira.vo.response.Data;
 import jira.vo.response.ResponseEntity;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,7 +24,7 @@ public class UI {
 
     private final static UserService userService = ApplicationContextHolder.getBean(UserService.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Writer.println("User Create -> 1");
         Writer.println("User List -> 2");
         String choice = new Scanner(System.in).next();
@@ -43,7 +44,7 @@ public class UI {
         }
     }
 
-    private static void userCreate() {
+    private static void userCreate() throws IOException {
         UserCreateVO.UserCreateVOBuilder builder = UserCreateVO.builder();
         builder.userName(Reader.read("Username : "));
         builder.password(Reader.read("Password : "));

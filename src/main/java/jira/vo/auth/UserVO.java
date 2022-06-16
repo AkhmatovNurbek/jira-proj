@@ -5,6 +5,7 @@ import jira.enums.Role;
 import jira.vo.GenericVO;
 import lombok.*;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -22,7 +23,7 @@ public class UserVO extends GenericVO {
     private String password;
 
     private Role role = Role.USER;
-    private LocalDateTime createdAt;
+    private Timestamp createdAt;
 
     public UserVO(User user) {
         super(user.getId());
@@ -33,7 +34,7 @@ public class UserVO extends GenericVO {
     }
 
     @Builder(builderMethodName = "childBuilder")
-    public UserVO(Long id, String userName, String password, LocalDateTime createdAt , Role role) {
+    public UserVO(Long id, String userName, String password, Timestamp createdAt , Role role) {
         super(id);
         this.userName = userName;
         this.password = password;

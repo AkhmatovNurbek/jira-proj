@@ -5,6 +5,7 @@ import jira.enums.Role;
 import lombok.*;
 
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
@@ -25,6 +26,6 @@ public class User implements BaseEntity {
     private String password;
     private String email;
     private Role role = Role.USER;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 }

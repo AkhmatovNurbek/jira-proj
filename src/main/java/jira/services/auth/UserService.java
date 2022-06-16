@@ -1,5 +1,7 @@
 package jira.services.auth;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import jira.configs.ApplicationContextHolder;
 import jira.criteria.UserCriteria;
 import jira.domains.auth.User;
@@ -15,6 +17,8 @@ import jira.vo.response.ErrorVO;
 import jira.vo.response.ResponseEntity;
 import lombok.NonNull;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +35,7 @@ public class UserService extends AbstractRepository<UserRepository, BaseMapper> 
     }
 
     @Override
-    public ResponseEntity<Data<Long>> create(@NonNull UserCreateVO dto) {
+    public ResponseEntity<Data<Long>> create(@NonNull UserCreateVO dto) throws IOException {
         User user = new User();
         Optional<User> userOptional = repository.findByUsername(dto);
         if (userOptional.isPresent()) {
@@ -46,6 +50,7 @@ public class UserService extends AbstractRepository<UserRepository, BaseMapper> 
         user.setPassword(dto.getPassword());
         user.setEmail(dto.getEmail());
         repository.create(user);
+
 
         return new ResponseEntity<>(new Data<>(user.getId()));
     }
@@ -85,6 +90,7 @@ public class UserService extends AbstractRepository<UserRepository, BaseMapper> 
         }
         return instance;
     }
+
 
 
     public ResponseEntity<Data<UserVO>>  checkIn(UserCreateVO userCreatVO) {

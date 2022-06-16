@@ -2,6 +2,9 @@ package jira;
 
 import jira.session.SessionUser;
 import jira.ui.BaseMenu;
+
+import java.io.IOException;
+
 /**
  * @author "Elmurodov Javohir"
  * @since 14/06/22/14:31 (Tuesday)
@@ -10,7 +13,7 @@ import jira.ui.BaseMenu;
 
 public class Application {
     public static SessionUser sessionUser = null;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         BaseMenu.baseMenu();
         main(args);
 

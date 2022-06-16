@@ -7,6 +7,7 @@ import jira.vo.response.Data;
 import jira.vo.response.ResponseEntity;
 import lombok.NonNull;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -26,7 +27,7 @@ public interface GenericCRUDService<
         UVO extends GenericVO,
         C extends GenericCriteria,
         ID extends Serializable> extends GenericService<VO, C, ID> {
-    ResponseEntity<Data<ID>> create(@NonNull CVO dto);
+    ResponseEntity<Data<ID>> create(@NonNull CVO dto) throws IOException;
 
     ResponseEntity<Data<Void>> delete(@NonNull ID id);
 

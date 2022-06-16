@@ -4,9 +4,11 @@ import jira.utils.Color;
 import jira.utils.Reader;
 import jira.utils.Writer;
 
+import java.io.IOException;
+
 public class AdminUI {
 
-    public static void adminPage() {
+    public static void adminPage() throws IOException {
         Writer.println("CRUD User   -> 1");
         Writer.println("CRUD Project   -> 2");
         Writer.println("Back        -> 0");

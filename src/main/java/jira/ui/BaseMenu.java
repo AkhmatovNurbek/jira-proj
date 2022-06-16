@@ -3,9 +3,7 @@ package jira.ui;
 import jira.Application;
 import jira.configs.ApplicationContextHolder;
 import jira.criteria.UserCriteria;
-import jira.domains.auth.User;
 import jira.enums.Role;
-import jira.repository.auth.UserRepository;
 import jira.services.auth.UserService;
 import jira.session.SessionUser;
 import jira.utils.Color;
@@ -18,15 +16,15 @@ import jira.vo.response.Data;
 
 import jira.vo.response.ResponseEntity;
 
-import java.util.Optional;
+import java.io.IOException;
 
 public class BaseMenu {
 
     private final static UserService userService = ApplicationContextHolder.getBean(UserService.class);
-    public static void baseMenu() {
+    public static void baseMenu() throws IOException {
 
         Writer.println("-----------------", Color.PURPLE);
-        Writer.println("    BASIC MENU", Color.GREEN);
+        Writer.println(" W E L C O M E !", Color.GREEN);
         Writer.println("-----------------", Color.PURPLE);
         Writer.println("Sign In     -> 1");
         Writer.println("Sign Up     -> 2");
@@ -42,7 +40,7 @@ public class BaseMenu {
         }
     }
 
-    private static void signUp() {
+    private static void signUp() throws IOException {
         UserCreateVO userCreatVO = UserCreateVO
                 .builder()
                 .userName(Reader.read("Username :"))
@@ -50,8 +48,8 @@ public class BaseMenu {
                 .email(Reader.read("Email :"))
                 .build();
         ResponseEntity<Data<Long>> responseData = userService.create(userCreatVO);
-        if(responseData.getData().isSuccess()){
 
+        if(responseData.getData().isSuccess()){
             Writer.println("Successfully created", Color.GREEN);
             System.out.println(userService.findAll(new UserCriteria()));
         }
@@ -60,14 +58,13 @@ public class BaseMenu {
     }
 
 
-    private static void signIn() {
+    private static void signIn() throws IOException {
         UserCreateVO userCreatVO = UserCreateVO
                 .builder()
                 .userName(Reader.read("Username :"))
                 .password(Reader.read("Password :"))
                 .build();
         ResponseEntity<Data<UserVO>> responseData = userService.checkIn(userCreatVO);
-
 
         if(responseData.getData().isSuccess()){
             Application.sessionUser = new SessionUser();
@@ -80,7 +77,7 @@ public class BaseMenu {
                 case ADMIN ->AdminUI.adminPage();
                 case MANAGER -> ManagerUI.managerPage();
                 case SUPER_ADMIN ->SuperAdminUI.superAdminPage();
-                //aaa
+
             }
         }
     }

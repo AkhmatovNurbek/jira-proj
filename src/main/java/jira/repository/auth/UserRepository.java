@@ -1,16 +1,21 @@
 package jira.repository.auth;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import jira.criteria.UserCriteria;
 import jira.domains.auth.User;
 import jira.enums.Role;
 import jira.repository.GenericCRUDRepository;
 import jira.vo.auth.UserCreateVO;
-import jira.vo.auth.UserVO;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 
-import java.time.LocalDateTime;
+import java.io.*;
+import java.lang.reflect.Type;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,16 +32,36 @@ public class UserRepository implements GenericCRUDRepository<User, UserCriteria,
     private static final List<User> users = load();
 
     private static List<User> load() {
+        Gson gson = new Gson();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("src/main/java/jira/services/users.json"));
+            Type type = new TypeToken<List<User>>(){}.getType();
+            List<User> users1 = gson.fromJson(reader , type);
+            return users1;
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         // TODO: 6/15/2022 load data from file here
-        return new ArrayList<>();
     }
+
+
 
 
     @Override
     public void create(User entity) {
         entity.setId(System.currentTimeMillis());
-        entity.setCreatedAt(LocalDateTime.now());
+        entity.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         users.add(entity);
+        try {
+            FileWriter fileWriter = new FileWriter("src/main/java/jira/services/users.json");
+            Gson gson =new GsonBuilder().setPrettyPrinting().create();
+            gson.toJson(users,fileWriter);
+            fileWriter.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
