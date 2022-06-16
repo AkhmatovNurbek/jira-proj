@@ -2,6 +2,7 @@ package jira.ui;
 
 import jira.configs.ApplicationContextHolder;
 import jira.criteria.UserCriteria;
+import jira.enums.Role;
 import jira.services.auth.UserService;
 import jira.utils.Color;
 import jira.utils.Reader;
@@ -16,6 +17,7 @@ public class BaseMenu {
     private final static UserService userService = ApplicationContextHolder.getBean(UserService.class);
 
     public static void baseMenu() {
+
         Writer.println("-----------------", Color.PURPLE);
         Writer.println("    BASIC MENU", Color.GREEN);
         Writer.println("-----------------", Color.PURPLE);
@@ -55,7 +57,15 @@ public class BaseMenu {
                 .userName(Reader.read("Username :"))
                 .password(Reader.read("Password :"))
                 .build();
-
-
+        ResponseEntity<Data<UserVO>> dataResponseUser = userService.checkIn(userCreatVO);
+        if(dataResponseUser.getData().isSuccess()){
+            Role role = dataResponseUser.getData().getBody().getRole();
+            switch (role){
+                case USER -> UserUI.userPage();
+                case ADMIN ->AdminUI.adminPage();
+                case MANAGER -> ManagerUI.managerPage();
+                case SUPER_ADMIN ->SuperAdminUI.superAdminPage();
+            }
+        }
     }
 }

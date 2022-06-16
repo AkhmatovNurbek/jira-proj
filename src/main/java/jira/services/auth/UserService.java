@@ -87,5 +87,16 @@ public class UserService extends AbstractRepository<UserRepository, BaseMapper> 
     }
 
 
-
+    public ResponseEntity<Data<UserVO>>  checkIn(UserCreateVO userCreatVO) {
+        User user = new User();
+        Optional<User> userOptional = repository.findByUsername(userCreatVO);
+        if (!userOptional.isPresent()) {
+            return new ResponseEntity<>(new Data<>(ErrorVO
+                    .builder()
+                    .friendlyMessage("User Name '%s not found".formatted(userCreatVO.getUserName()))
+                    .status(400)
+                    .build()));
+        }
+        return new ResponseEntity<>(new Data<>(new UserVO(user)));
+    }
 }

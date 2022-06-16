@@ -2,8 +2,10 @@ package jira.repository.auth;
 
 import jira.criteria.UserCriteria;
 import jira.domains.auth.User;
+import jira.enums.Role;
 import jira.repository.GenericCRUDRepository;
 import jira.vo.auth.UserCreateVO;
+import jira.vo.auth.UserVO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -23,7 +25,6 @@ public class UserRepository implements GenericCRUDRepository<User, UserCriteria,
 
     private static UserRepository instance;
     private static final List<User> users = load();
-
 
     private static List<User> load() {
         // TODO: 6/15/2022 load data from file here
