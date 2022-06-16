@@ -1,9 +1,12 @@
 package uz.jl.jira.domains.auth;
 
 import lombok.*;
+import uz.jl.jira.configs.enums.UserRole;
 import uz.jl.jira.domains.BaseEntity;
 
 import java.time.LocalDateTime;
+
+import static uz.jl.jira.configs.enums.UserRole.USER;
 
 /**
  * @author "Elmurodov Javohir"
@@ -20,6 +23,7 @@ public class User implements BaseEntity {
     private Long id;
     private String userName;
     private String password;
+    private UserRole userRole = USER;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

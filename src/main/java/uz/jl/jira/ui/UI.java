@@ -24,12 +24,31 @@ public class UI {
     private final static UserService userService = ApplicationContextHolder.getBean(UserService.class);
 
     public static void main(String[] args) {
-        Writer.println("User Create -> 1");
-        Writer.println("User List -> 2");
-        String choice = new Scanner(System.in).next();
-        if (choice.equals("1")) userCreate();
-        else if (choice.equals("2")) userList();
-        else System.exit(0);
+        Writer.println("Regstration");
+        Writer.println("1.Sign in");
+        Writer.println("2.Sign up");
+        String button = new Scanner(System.in).next();
+        if(button.equals("1")) {
+            UserCreateVO.UserCreateVOBuilder builder = UserCreateVO.builder();
+            builder.userName(Reader.readLine("Username = "));
+            builder.password(Reader.readLine("Password = "));
+            UserCreateVO userCreateVO = builder.build();
+            int a=0;
+            for (UserVO userVO : userService.findAll(new UserCriteria()).getData().getBody().stream().toList()) {
+                if(userVO.getUserName().equals(userCreateVO.getUserName()) && userVO.getPassword().equals(userCreateVO.getPassword()))
+                    a++;
+            }
+            if(a>0){
+                Writer.println("Successful operation" , Color.GREEN);
+            }else Writer.println("Username or password incorrect" , Color.RED);
+        }
+        else if(button.equals("2")) userCreate();
+//        Writer.println("User Create -> 1");
+//        Writer.println("User List -> 2");
+//        String choice = new Scanner(System.in).next();
+//        if (choice.equals("1")) userCreate();
+//        else if (choice.equals("2")) userList();
+//        else System.exit(0);
         main(args);
     }
 
@@ -37,7 +56,7 @@ public class UI {
         ResponseEntity<Data<List<UserVO>>> responseData = userService.findAll(new UserCriteria());
         Data<List<UserVO>> data = responseData.getData();
         if (data.isSuccess()) {
-            Writer.println(responseData.getData(), Color.GREEN);
+            Writer.println(responseData.getData().getBody(), Color.GREEN);
         } else {
             Writer.println(data.getError(), Color.RED);
         }
