@@ -67,6 +67,7 @@ public class BaseMenu {
                 case ADMIN ->AdminUI.adminPage();
                 case MANAGER -> ManagerUI.managerPage();
                 case SUPER_ADMIN ->SuperAdminUI.superAdminPage();
+                //aaa
             }
         }
     }
