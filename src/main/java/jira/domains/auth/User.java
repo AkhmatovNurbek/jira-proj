@@ -24,7 +24,7 @@ public class User implements BaseEntity {
     private String userName;
     private String password;
     private String email;
-    private Role role = Role.ADMIN;
+    private Role role = Role.USER;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
