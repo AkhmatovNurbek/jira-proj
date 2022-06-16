@@ -2,6 +2,7 @@ package jira.domains.auth;
 
 import jira.domains.BaseEntity;
 import jira.enums.CommentType;
+import jira.enums.TaskStatus;
 import lombok.*;
 
 import java.lang.reflect.Member;
@@ -55,6 +56,7 @@ public class Organization implements BaseEntity {
                 private String name;
                 private List<Comment> comments;
                 private List<Member> members;
+                private TaskStatus status = TaskStatus.PROGRESS;
 
                 @Getter
                 @Setter
