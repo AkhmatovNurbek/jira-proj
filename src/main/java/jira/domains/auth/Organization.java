@@ -31,7 +31,7 @@ public class Organization implements BaseEntity {
         private Long id;
         private String name;
         private List<Column> columns;
-        private List<Member> member;
+        private List<Member> members;
         private LocalDateTime deadline;
 
         @Getter
@@ -55,7 +55,7 @@ public class Organization implements BaseEntity {
                 private Long id;
                 private String name;
                 private List<Comment> comments;
-                private List<Member> members;
+                private Member member;
                 private TaskStatus status = TaskStatus.PROGRESS;
 
                 @Getter
