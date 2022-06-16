@@ -1,10 +1,15 @@
 package jira.ui;
 
 import jira.configs.ApplicationContextHolder;
+import jira.criteria.UserCriteria;
 import jira.services.auth.UserService;
 import jira.utils.Color;
 import jira.utils.Reader;
 import jira.utils.Writer;
+import jira.vo.auth.UserCreateVO;
+import jira.vo.auth.UserVO;
+import jira.vo.response.Data;
+import jira.vo.response.ResponseEntity;
 
 public class BaseMenu {
 
@@ -29,10 +34,28 @@ public class BaseMenu {
     }
 
     private static void signUp() {
+        UserCreateVO userCreatVO = UserCreateVO
+                .builder()
+                .userName(Reader.read("Username :"))
+                .password(Reader.read("Password :"))
+                .email(Reader.read("Email :"))
+                .build();
+        ResponseEntity<Data<Long>> responseData = userService.create(userCreatVO);
+        if(responseData.getData().isSuccess()){
+            Writer.println("Succesfully created");
+        }
+        else Writer.println(responseData.getData().getError().getFriendlyMessage() , Color.RED);
 
     }
 
+
     private static void signIn() {
+        UserCreateVO userCreatVO = UserCreateVO
+                .builder()
+                .userName(Reader.read("Username :"))
+                .password(Reader.read("Password :"))
+                .build();
+
 
     }
 }
