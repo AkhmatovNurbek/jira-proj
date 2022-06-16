@@ -21,6 +21,9 @@ import java.util.Scanner;
  */
 public class UI {
     //dvdwwv\wrnvlijnviuvbwivubwdivubweicuewbvwdiuvbdwicubdwivuewbv
+    /*
+    * Jaloliddin
+    * */
 
     private final static UserService userService = ApplicationContextHolder.getBean(UserService.class);
 
