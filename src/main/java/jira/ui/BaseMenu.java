@@ -2,6 +2,7 @@ package jira.ui;
 
 import jira.Application;
 import jira.configs.ApplicationContextHolder;
+import jira.criteria.UserCriteria;
 import jira.domains.auth.User;
 import jira.enums.Role;
 import jira.repository.auth.UserRepository;
@@ -50,16 +51,9 @@ public class BaseMenu {
                 .build();
         ResponseEntity<Data<Long>> responseData = userService.create(userCreatVO);
         if(responseData.getData().isSuccess()){
-            Optional<User> userOptional = UserRepository.findByUsername(responseData.getData().getBody());
-            Application.sessionUser = new SessionUser();
-            if(userOptional.isPresent()){
-                Application.sessionUser.setId(userOptional.get().getId());
-                Application.sessionUser.setUsername(userOptional.get().getUserName());
-                Writer.println("Successfully created", Color.GREEN);
-            }
-            else{
-                Writer.println("Not found user", Color.RED);
-            }
+
+            Writer.println("Successfully created", Color.GREEN);
+            System.out.println(userService.findAll(new UserCriteria()));
         }
         else Writer.println(responseData.getData().getError().getFriendlyMessage() , Color.RED);
 
@@ -72,11 +66,15 @@ public class BaseMenu {
                 .userName(Reader.read("Username :"))
                 .password(Reader.read("Password :"))
                 .build();
-        ResponseEntity<Data<UserVO>> dataResponseUser = userService.checkIn(userCreatVO);
+        ResponseEntity<Data<UserVO>> responseData = userService.checkIn(userCreatVO);
 
 
-        if(dataResponseUser.getData().isSuccess()){
-            Role role = dataResponseUser.getData().getBody().getRole();
+        if(responseData.getData().isSuccess()){
+            Application.sessionUser = new SessionUser();
+            Application.sessionUser.setId(responseData.getData().getBody().getId());
+            Application.sessionUser.setUsername(responseData.getData().getBody().getUserName());
+            Application.sessionUser.setRole(responseData.getData().getBody().getRole());
+            Role role =Application.sessionUser.getRole();
             switch (role){
                 case USER -> UserUI.userPage();
                 case ADMIN ->AdminUI.adminPage();

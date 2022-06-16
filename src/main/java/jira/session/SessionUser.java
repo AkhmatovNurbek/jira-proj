@@ -1,6 +1,7 @@
 package jira.session;
 
 
+import jira.enums.Role;
 import lombok.*;
 
 @AllArgsConstructor
@@ -12,5 +13,5 @@ import lombok.*;
 public class SessionUser {
     private Long id;
     private String username;
-
+    private Role role;
 }
