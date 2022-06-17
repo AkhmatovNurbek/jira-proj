@@ -1,7 +1,5 @@
 package jira.services.auth;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import jira.configs.ApplicationContextHolder;
 import jira.criteria.UserCriteria;
 import jira.domains.auth.User;
@@ -28,7 +26,6 @@ public class UserService extends AbstractRepository<UserRepository, BaseMapper> 
         GenericCRUDService<UserVO, UserCreateVO, UserUpdateVO, UserCriteria, Long> {
 
     private static UserService instance;
-
 
     private UserService(UserRepository repository, BaseMapper mapper) {
         super(repository, mapper);
@@ -90,8 +87,6 @@ public class UserService extends AbstractRepository<UserRepository, BaseMapper> 
         }
         return instance;
     }
-
-
 
     public ResponseEntity<Data<UserVO>>  checkIn(UserCreateVO userCreatVO) {
         User user = new User();
