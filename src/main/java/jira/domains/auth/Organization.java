@@ -27,7 +27,7 @@ public class Organization implements BaseEntity {
     @NoArgsConstructor
     @Builder
     @ToString
-    static class Project {
+    public static class Project {
         private Long id;
         private String name;
         private List<Column> columns;
@@ -40,7 +40,7 @@ public class Organization implements BaseEntity {
         @NoArgsConstructor
         @Builder
         @ToString
-        static class Column {
+        public static class Column {
             private Long id;
             private String name;
             private List<Task> tasks;
@@ -51,7 +51,7 @@ public class Organization implements BaseEntity {
             @NoArgsConstructor
             @Builder
             @ToString
-            static class Task {
+            public static class Task {
                 private Long id;
                 private String name;
                 private List<Comment> comments;

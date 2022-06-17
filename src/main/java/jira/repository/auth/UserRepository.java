@@ -28,8 +28,8 @@ import java.util.Optional;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserRepository implements GenericCRUDRepository<User, UserCriteria, Long> {
 
-    private static UserRepository instance;
-    private static final List<User> users = load();
+    public static UserRepository instance;
+    public static final List<User> users = load();
 
     private static List<User> load() {
         Gson gson = new Gson();
