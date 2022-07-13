@@ -21,7 +21,7 @@
 
 ## Loyihani yuklash uchun
 
-   SDK: <a href = "https://download.oracle.com/java/18/archive/jdk-18.0.1.1_windows-x64_bin.exe (sha256)">corretto-18 Oracle OpenJDK version 18.0.1</a>
+   SDK: <a href = "https://www.oracle.com/java/technologies/javase/jdk18-archive-downloads.html">corretto-18 Oracle OpenJDK version 18.0.1</a>
 
 ## Agar sizda savol va murojatlaringiz bolsa: *
 
